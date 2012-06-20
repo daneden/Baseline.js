@@ -12,22 +12,23 @@
 
 	$.fn.baseline = function(target) {
 
+		// Set up our variables, like a good little developer
 		var tall;
 		var newHeight;
 
 		return this.each(function(){
-			var $this = $(this);
+			var $this = $(this); // Set the images as objects
 
-			var setbase = function(target) {
-				$this.removeAttr('style');
-				tall = $this.height();
-				newHeight = Math.floor(tall / target) * target;
-				$this.css('maxHeight', newHeight);
+			var setbase = function(target) { // The fun starts here
+				$this.removeAttr('style'); // Remove old max-height so that we can resize up as well as down
+				tall = $this.height(); // Grab the height
+				newHeight = Math.floor(tall / target) * target; // Make up a new height based on the baseline
+				$this.css('maxHeight', newHeight); // Set it!
 			}
 
-			setbase(target);
+			setbase(target); // Call on load
 
-			$(window).resize(function(){
+			$(window).resize(function(){ // And call again on resize.
 				setbase(target);
 			});
 
