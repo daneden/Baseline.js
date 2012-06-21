@@ -20,7 +20,7 @@
 			var $this = $(this); // Set the images as objects
 
 			var setbase = function(target) { // The fun starts here
-				$this.removeAttr('style'); // Remove old max-height so that we can resize up as well as down
+				$this.css('maxHeight', 'none'); // Remove old max-height so that we can resize up as well as down
 				tall = $this.height(); // Grab the height
 				newHeight = Math.floor(tall / target) * target; // Make up a new height based on the baseline
 				$this.css('maxHeight', newHeight); // Set it!
