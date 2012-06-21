@@ -24,7 +24,7 @@
 				tall = $this.height(); // Grab the height
 				newHeight = Math.floor(tall / target) * target; // Make up a new height based on the baseline
 				$this.css('maxHeight', newHeight); // Set it!
-			}
+			};
 
 			setbase(target); // Call on load
 
@@ -34,6 +34,6 @@
 
 		});
 
-	}
+	};
 
 }) ( jQuery );
