@@ -13,7 +13,7 @@
 	$.fn.baseline = function(breakpoints) {
 
 		// Set up our variables, like a good little developer
-		var tall, newHeight, base;
+		var tall, newHeight, base, old = 0;
 
 		return this.each(function(){
 			var $this = $(this); // Set the images as objects
@@ -26,8 +26,10 @@
 		                } else if (typeof breakpoints === 'object') {
 		                    // Loop through the breakpoints and check which baseline to apply
 		                    for (key in breakpoints) {
-		                        if (document.width > parseInt(key)) {
+		                    	var current = parseInt(key);
+		                        if (document.width > current && current >= old) {
 		                            base = breakpoints[key];
+		                            old = current;
 		                        }
 		                    }
 		                }
