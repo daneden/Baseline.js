@@ -34,7 +34,7 @@
 		                    }
 		                }
                 
-				$this.removeAttr('style'); // Remove old max-height so that we can resize up as well as down
+				$this.css('maxHeight', 'none'); // Remove old max-height so that we can resize up as well as down
 				tall = $this.height(); // Grab the height
 				newHeight = Math.floor(tall / base) * base; // Make up a new height based on the baseline
 				$this.css('maxHeight', newHeight); // Set it!
