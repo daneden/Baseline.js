@@ -10,8 +10,8 @@
 
 /*
 	//call like so
-	baseline.init('img', '24');
-	baseline.init('.post img', '48');
+	baseline.init('img',  24);
+	baseline.init('.post img',  48);
 	baseline.init('#content img', {480: 30, 640: 35}); // an object of breakpoints, ie. 480px or above, baseline is 30px.
 */
 
