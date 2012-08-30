@@ -23,6 +23,7 @@ var baseline = function(){
 
 		init: function(selector, target){
 			if(selector === undefined || target === undefined) return false;
+			this.target = target;
 			this.images = document.querySelectorAll(selector);
 			this.setbase(this.images);
 			this.tellmetarget(target);
