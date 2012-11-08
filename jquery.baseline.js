@@ -16,23 +16,23 @@
     var tall, offset, newHeight, base, old = 0;
 
     return this.each(function(){
-      var $this = $(this); // Set the images as objects
+      var $this = $(this).wrap('<div class="baseline-img" />').parent().css('overflow', 'hidden'); // Set the images as objects
 
       var setbase = function(breakpoints) { // The fun starts here
       
         // Check if a single value or multiple breakpoints are given                
-                    if (typeof breakpoints === 'number') {
-                        base = breakpoints;
-                    } else if (typeof breakpoints === 'object') {
-                        // Loop through the breakpoints and check which baseline to apply
-                        for (key in breakpoints) {
-                          var current = parseInt(key);
-                            if (document.width > current && current >= old) {
-                                base = breakpoints[key];
-                                old = current;
-                            }
-                        }
-                    }
+        if (typeof breakpoints === 'number') {
+            base = breakpoints;
+        } else if (typeof breakpoints === 'object') {
+            // Loop through the breakpoints and check which baseline to apply
+            for (key in breakpoints) {
+              var current = parseInt(key);
+                if (document.width > current && current >= old) {
+                    base = breakpoints[key];
+                    old = current;
+                }
+            }
+        }
                 
         $this.css('maxHeight', 'none'); // Remove old max-height so that we can resize up as well as down
         tall = $this.height(); // Grab the height
