@@ -10,44 +10,45 @@
 */
 (function( $ ) {
 
-	$.fn.baseline = function(breakpoints) {
+  $.fn.baseline = function(breakpoints) {
 
-		// Set up our variables, like a good little developer
-		var tall, newHeight, base, old = 0;
+    // Set up our variables, like a good little developer
+    var tall, offset, newHeight, base, old = 0;
 
-		return this.each(function(){
-			var $this = $(this); // Set the images as objects
+    return this.each(function(){
+      var $this = $(this).wrap('<div class="baseline-img" />').parent().css('overflow', 'hidden'); // Set the images as objects
 
-			var setbase = function(breakpoints) { // The fun starts here
-			
-				// Check if a single value or multiple breakpoints are given                
-		                if (typeof breakpoints === 'number') {
-		                    base = breakpoints;
-		                } else if (typeof breakpoints === 'object') {
-		                    // Loop through the breakpoints and check which baseline to apply
-		                    for (key in breakpoints) {
-		                    	var current = parseInt(key);
-		                        if (document.width > current && current >= old) {
-		                            base = breakpoints[key];
-		                            old = current;
-		                        }
-		                    }
-		                }
+      var setbase = function(breakpoints) { // The fun starts here
+      
+        // Check if a single value or multiple breakpoints are given                
+        if (typeof breakpoints === 'number') {
+            base = breakpoints;
+        } else if (typeof breakpoints === 'object') {
+            // Loop through the breakpoints and check which baseline to apply
+            for (key in breakpoints) {
+              var current = parseInt(key);
+                if (document.width > current && current >= old) {
+                    base = breakpoints[key];
+                    old = current;
+                }
+            }
+        }
                 
-				$this.css('maxHeight', 'none'); // Remove old max-height so that we can resize up as well as down
-				tall = $this.height(); // Grab the height
-				newHeight = Math.floor(tall / base) * base; // Make up a new height based on the baseline
-				$this.css('maxHeight', newHeight); // Set it!
-			}
+        $this.css('maxHeight', 'none'); // Remove old max-height so that we can resize up as well as down
+        tall = $this.height(); // Grab the height
+        offset = Math.floor($this.outerHeight() - tall); // Calculate padding + border offset
+        newHeight = (Math.floor(tall / base) * base) - offset; // Make up a new height based on the baseline
+        $this.css('maxHeight', newHeight); // Set it!
+      }
 
-			setbase(breakpoints); // Call on load
+      setbase(breakpoints); // Call on load
 
-			$(window).resize(function(){ // And call again on resize.
-				setbase(breakpoints);
-			});
+      $(window).resize(function(){ // And call again on resize.
+        setbase(breakpoints);
+      });
 
-		});
+    });
 
-	}
+  }
 
 }) ( jQuery );

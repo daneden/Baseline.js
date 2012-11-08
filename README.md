@@ -1,5 +1,7 @@
 # Baseline.js
 
+Now wraps images in a container and applies the baseline calculation with `overflow:hidden;`. You can then set `width:100%;` on the image and have it maintain it's aspect ratio as well as fill the full width.
+
 Baseline.js is a simple jQuery plugin for restoring baselines thrown off by odd image sizes.
 
 Simply call the plugin like so, passing the height of your baseline as a variable. It even works on responsive designs!
@@ -14,18 +16,6 @@ You can also define multiple baselines for different breakpoints. Perfect for re
 ```javascript
 $('.content img').baseline({'0px':24, '700px':30}); // Apply a 24px baseline for all widths, 30px for widths above 700px
 ```
-
-## Vanilla JS
-
-There's also a vanilla JS version available, so there's no need to load jQuery. Simply include ```baseline.js``` in your page, and call it like so:
-
-```javascript
-baseline.init('img', 24); // Apply a 24px baseline to all images on the page
-baseline.init('.content img', 30); // Apply a 30px baseline to all images inside .content
-baseline.init('.content img', {0:24, 700:30}); // Apply a 24px baseline for all widths, 30px for widths above 700px
-```
-
-Thanks to [Ben Howdle](https://twitter.com/#!/benhowdle) for the vanilla JS version. You rock, Ben.
 
 ## License
 
