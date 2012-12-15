@@ -14,9 +14,9 @@
 
 		// Set up our variables, like a good little developer
 		var tall, newHeight, base, old = 0;
+		var $this = $(this); // Set the images as objects
 
 		return this.each(function(){
-			var $this = $(this); // Set the images as objects
 
 			var setbase = function(breakpoints) { // The fun starts here
 			
@@ -40,7 +40,9 @@
 				$this.css('maxHeight', newHeight); // Set it!
 			}
 
-			setbase(breakpoints); // Call on load
+			$this.load(function(){
+				setbase(breakpoints); // Call on load
+			});
 
 			$(window).resize(function(){ // And call again on resize.
 				setbase(breakpoints);
