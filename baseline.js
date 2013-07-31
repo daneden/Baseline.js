@@ -27,10 +27,12 @@ var baseline = function(){
 			this.setbase(this.images);
 			this.tellmetarget(target);
 			var me = this;
-			window.onresize = function() {
+			var onresize = function() {
 				me.tellmetarget(target);
 				me.setbase(me.images);
 			};
+			if(window.addEventListener) window.addEventListener('resize', onresize, false);
+			else if(window.attachEvent) window.attachEvent('onresize', onresize);
 		},
 
 		tellmetarget: function(target){
