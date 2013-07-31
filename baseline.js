@@ -37,7 +37,7 @@ var baseline = function(){
 			if(typeof target === 'number'){
 				this.target = target;
 			} else if(typeof target === 'object'){
-				for(x in target){
+				for(var x in target){
 					if(document.width > x){
 						this.target = target[x];
 					}
