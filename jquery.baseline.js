@@ -13,14 +13,14 @@
 	$.fn.baseline = function(breakpoints) {
 
 		// Set up our variables, like a good little developer
-		var tall, newHeight, base, old = 0;
+		var tall, newHeight, base, old, margin = 0;
 
 		return this.each(function(){
 			var $this = $(this); // Set the images as objects
 
 			var setbase = function(breakpoints) { // The fun starts here
-			
-				// Check if a single value or multiple breakpoints are given                
+
+				// Check if a single value or multiple breakpoints are given
 		                if (typeof breakpoints === 'number') {
 		                    base = breakpoints;
 		                } else if (typeof breakpoints === 'object') {
@@ -33,11 +33,12 @@
 		                        }
 		                    }
 		                }
-                
+
 				$this.css('maxHeight', 'none'); // Remove old max-height so that we can resize up as well as down
 				tall = $this.height(); // Grab the height
-				newHeight = Math.floor(tall / base) * base; // Make up a new height based on the baseline
-				$this.css('maxHeight', newHeight); // Set it!
+				newHeight = Math.ceil(tall / base) * base; // Make up a new height based on the baseline
+				margin = newHeight - tall + base
+				$this.css('marginBottom', margin); // Set it!
 			}
 
 			setbase(breakpoints); // Call on load

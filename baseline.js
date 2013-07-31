@@ -17,7 +17,7 @@
 
 var baseline = function(){
 
-	var tall, newHeight, target, imgl, cur, images = [];
+	var tall, newHeight, target, imgl, cur, images, margin = [];
 
 	return {
 
@@ -53,7 +53,8 @@ var baseline = function(){
 					this.cur.style.maxHeight = 'none';
 					this.tall = this.cur.offsetHeight;
 					this.newHeight = Math.floor(this.tall / this.target) * this.target;
-					this.cur.style.maxHeight = this.newHeight + 'px';
+					this.margin = this.newHeight - this.tall + this.target;
+					this.cur.style.marginBottom = this.margin + 'px';
 				}
 			}
 		}
