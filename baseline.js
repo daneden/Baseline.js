@@ -5,7 +5,7 @@
 * Released under the WTFPL license
 * http://sam.zoy.org/wtfpl/
 *
-* Date: Fri August 02 08:59:00 2013 GMT
+* Date: Sat August 04 23:47:00 2013 GMT
 */
 
 (function (window, $) {
@@ -45,10 +45,10 @@
        */
 
       for (var key in _breakpoints) {
-        current = parseInt(key, 10);
+        current = key;
 
-        if (document.width > current && current >= old) {
-          _base = parseInt(_breakpoints[key], 10);
+        if (document.body.clientWidth > current && current >= old) {
+          _base = _breakpoints[key];
           old = current;
         }
       }
@@ -107,9 +107,14 @@
        */
 
       if (typeof options === 'number') {
-        _base = options;
+        _base = parseInt(options, 10);
       } else if (typeof options === 'object') {
-        _breakpoints = options;
+        var em = parseInt(getComputedStyle(document.body, null).getPropertyValue('font-size'), 10);
+
+        for (var point in breakpoints) {
+          var unitless = /\d+em/.test(point) ? parseInt(point, 10) * em : /\d+px/.test(point) ? parseInt(point, 10) : point;
+          _breakpoints[unitless] = parseInt(breakpoints[point], 10);
+        }
       }
 
       /**
