@@ -58,7 +58,7 @@
        * adjacent element down far enough to get back onto the baseline.
        */
 
-      element.style.marginBottom = Math.ceil(height / _base) * _base - height + _base + 'px';
+      element.style.marginBottom = _base - (height % _base) + 'px';
     }
 
     /**
