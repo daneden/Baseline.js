@@ -111,9 +111,9 @@
       } else if (typeof options === 'object') {
         var em = parseInt(getComputedStyle(document.body, null).getPropertyValue('font-size'), 10);
 
-        for (var point in breakpoints) {
+        for (var point in _breakpoints) {
           var unitless = /\d+em/.test(point) ? parseInt(point, 10) * em : /\d+px/.test(point) ? parseInt(point, 10) : point;
-          _breakpoints[unitless] = parseInt(breakpoints[point], 10);
+          _breakpoints[unitless] = parseInt(_breakpoints[point], 10);
         }
       }
 
