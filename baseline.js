@@ -1,11 +1,11 @@
 /*!
-* Baseline.js 1.0
+* Baseline.js 1.1
 *
 * Copyright 2013, Daniel Eden http://daneden.me
 * Released under the WTFPL license
 * http://sam.zoy.org/wtfpl/
 *
-* Date: Sat August 04 23:47:00 2013 GMT
+* Date: 2014-06-20
 */
 
 (function (window, $) {
@@ -21,7 +21,8 @@
      */
 
     var _base = 0,
-        _breakpoints = {};
+        _breakpoints = {},
+        _dynamicBase;
 
     /**
      * @name     _setBase
@@ -38,19 +39,33 @@
       var height = element.offsetHeight,
           current, old;
 
-      /**
-       * In this step we loop through all the breakpoints, if any were given.
-       * If the baseline call received a number from the beginning, this loop
-       * is simply ignored.
-       */
+      if( _dynamicBase ) {
 
-      for (var key in _breakpoints) {
-        current = key;
+          /**
+           * Compute the _base through a user defined function on each execution.
+           * This could be used to get the current grid size for different breakpoints
+           * from an actual element property instead of defining those breakpoints in the options.
+           */
+          _base = _dynamicBase();
 
-        if (document.body.clientWidth > current && current >= old) {
-          _base = _breakpoints[key];
-          old = current;
+      }
+      else {
+
+        /**
+         * In this step we loop through all the breakpoints, if any were given.
+         * If the baseline call received a number from the beginning, this loop
+         * is simply ignored.
+         */
+
+        for (var key in _breakpoints) {
+          current = key;
+
+          if (document.body.clientWidth > current && current >= old) {
+            _base = _breakpoints[key];
+            old = current;
+          }
         }
+
       }
 
       /**
@@ -102,12 +117,14 @@
           len = targets.length;
 
       /**
-       * Decide whether to set the `_breakpoints` variable or not. This will be
-       * relevant in the `_setBase()` function.
+       * Decide whether to set the `_breakpoints` or `_dynamicBase` variables or not.
+       * This will be relevant in the `_setBase()` function.
        */
 
       if (typeof options === 'number') {
         _base = parseInt(options, 10);
+      } else if (typeof options === 'function') {
+          _dynamicBase = options;
       } else if (typeof options === 'object') {
         var em = parseInt(getComputedStyle(document.body, null).getPropertyValue('font-size'), 10);
 
